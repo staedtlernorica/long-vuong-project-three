@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import './App.css';
-// import UserEntry from './UserEntry'
-// import AddMoreRows from './AddMoreRows';
+import UserEntry from './UserEntry'
+import AddMoreRows from './AddMoreRows';
 
 function App() {
 
-  // const [entryRows, setEntryRows] = useState(1);
+  const [entryRows, setEntryRows] = useState(1);
 
   return (
     <div className="App">
@@ -14,12 +14,13 @@ function App() {
 
         
 
-        {/* <AddMoreRows
+        <AddMoreRows
           noRowsOnScreen = {entryRows}
-        /> */}
+        />
 
-      </form>
-    </div>
+        </form>
+
+</div>
   );
 }
 
