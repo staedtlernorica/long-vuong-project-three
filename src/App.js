@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 // import UserEntry from './UserEntry'
 // import AddMoreRows from './AddMoreRows';
-import Rows from './Rows';
+// import Rows from './Rows';
 
 
 
@@ -15,26 +15,36 @@ function App() {
 
   const handleChange = (event) => {
     const x = Number(event.target.value)
-    console.log(x)
-    console.log(typeof(x))
+    // console.log(x)
+    // console.log(typeof(x))
 
     setRowsToAdd(x)
   }
 
   const handleSubmit = () => {
-    
+    console.log(`creating ${rowsToAdd} rows`)
+
+    setRowsToAdd(0);
+
+    return (
+      <>
+        <label htmlFor="">{}row</label>
+        <input type="text" />
+      </>
+    )
+
   }
 
   return (
     <div className="App">
 
-
+      {/* <Rows /> */}
 
       <h3> add
-          <input type="number" onChange={handleChange}/>
+        <input type="number" value={rowsToAdd} onChange={handleChange} />
         rows to screen
-        <button>create row</button>
-        </h3>
+        <button type="submit" onClick={() => handleSubmit()} >create row</button>
+      </h3>
 
     </div>
   );
