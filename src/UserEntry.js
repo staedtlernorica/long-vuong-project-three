@@ -1,6 +1,6 @@
+import Rows from './Rows';
 
-
-function UserEntry() {
+function UserEntry(props) {
 
     return (
         
@@ -10,8 +10,9 @@ function UserEntry() {
 
             <form action="">
 
-                <label htmlFor="">1.</label>
-                <input type="text" />
+                <Rows 
+                    noOfRows
+                />
             </form>
 
             <h2>add <input type="number" /> more entries <button type="submit"> add</button> </h2>
