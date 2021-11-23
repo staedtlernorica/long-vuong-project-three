@@ -1,53 +1,70 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-// import UserEntry from './UserEntry'
-// import AddMoreRows from './AddMoreRows';
-// import Rows from './Rows';
+import Rows from './Rows';
 
 function App() {
-  const [rowsOnScreen, setRowsOnScreen] = useState(1);
-  const [rowsToAddValue, setRowsToAddValue] = useState(0);
-  const [rowsToAdd, setRowsToAdd] = useState(0);
 
-  const handleChange = (event) => {
-    const x = Number(event.target.value);
-    // console.log(x)
-    // console.log(typeof(x))
+  const [numberOfEntries, setNumberOfEntries] = useState([0]);
+  const [allUserInputs, setAllUserInputs] = useState(['']);
 
-    setRowsToAddValue(x);
-  };
 
-  const handleSubmit = () => {
-    setRowsToAdd(rowsToAddValue);
-    // setRowsToAddValue(0);
-    // setRowsToAdd(0);
-  };
+
+  const handleEntriesInput = (event) => {
+
+    const entries = Number(event.target.value);
+    // from here https://stackoverflow.com/a/33352604/6030118
+    const x = [...Array(entries).keys()]
+    setNumberOfEntries(x);
+  }
+
+
+  // add or remove entries based user 
+  useEffect(() => {
+
+    let placeholder = allUserInputs;
+
+    if (allUserInputs.length - numberOfEntries.length !== 0){
+      allUserInputs.length < numberOfEntries.length
+      ? placeholder.push('')
+      : placeholder.pop();
+    }
+
+  }, [numberOfEntries])
+
+
+  const captureInfo = (() => {
+    
+  })
+
 
   return (
     <div className="App">
-      <h3>
-        {" "}
-        add
-        <input type="number" value={rowsToAddValue} onChange={handleChange} />
-        more rows to the screen
-        <button type="submit" onClick={() => handleSubmit()}>
-          create row
-        </button>
-      </h3>
-      {new Array(rowsToAdd).fill(1).map((_, index) => {
-        return <Row key={index} index={index + 1} />;
-      })}
+
+      <h2>
+        I want
+        <input type="number" onChange={handleEntriesInput} min={1} value={numberOfEntries.length}/>
+        entries
+      </h2>
+
+      <ul>
+        {
+          numberOfEntries.map((index) => {
+            return (
+              <Rows
+                index={index}
+                func={setAllUserInputs}
+                allInputs={allUserInputs}
+              />
+            )
+          })
+        }
+      </ul>
+
+      <button onClick={captureInfo}>capture info</button>
+
     </div>
   );
 }
 
-export default App;
 
-const Row = ({ index }) => {
-  return (
-    <div>
-      <label>{index}</label>
-      <input type="text" />
-    </div>
-  );
-};
+export default App;
