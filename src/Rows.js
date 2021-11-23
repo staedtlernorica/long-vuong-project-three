@@ -5,6 +5,11 @@ function Rows(props) {
   const [userInput, setUserInput] = useState('');
 
 
+  // WHY DOESNT THIS UPDATE IMMEDIATELY AS I EXPECTED IT TO
+  // SHOULDN'T THE USEEFFECT AUTOMATICALLY UPDATE ALLINPUTS SINCE A STATE WAS CHANGED
+
+  // ALLUSERINPUTS ONLY UPDATES AND CAPTURE ALL DATA WHEN THE NUMBER ENTRY IS CLICKED
+
   // lets user inputs their info into the input field
   const handleTextInput = (event) => {
     // console.log(props.index)
