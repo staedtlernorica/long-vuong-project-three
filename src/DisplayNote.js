@@ -1,7 +1,20 @@
+import firebase from './firebase';
+
 function DisplayNote(props) {
 
+    const noteId = props.noteObj.noteId;
+
+    const removeNote = (whatToRemove) => {
+
+        const dbRef = firebase.database().ref();
+    
+        // chain two firebase methods to remove an item
+        dbRef.child(whatToRemove).remove();
+      }
+
     return (
-        <ul id={props.noteObj.noteId}>
+        <ul>
+            <button onClick={() => removeNote(noteId)}>Remove {noteId} From Firebase</button>
             {
                 props.noteObj.noteContent.map((individualEntry) => {
                     return (
