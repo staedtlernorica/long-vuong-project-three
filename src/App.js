@@ -15,7 +15,7 @@ function App() {
 
 
   // ====================LOCAL STUFF===================================
-  const [numberOfEntries, setNumberOfEntries] = useState([0]);
+  const [numberOfEntries, setNumberOfEntries] = useState([0,1,2]);
   const [allEntries, setAllEntries] = useState(['']);
 
   // add or remove entries based user 
@@ -43,10 +43,6 @@ function App() {
   }, [newEntryAndIndex])
 
 
-
-
-
-
   const handleEntriesInput = (event) => {
 
     const entries = Number(event.target.value);
@@ -56,22 +52,12 @@ function App() {
   }
 
 
-  // WHY DOES THIS WORKING WITHOUT THE COMMENTED STUFF
-
-  // this is always the most recent note the user saved
-  // const [savedNote, setSavedNote] = useState([]);
-
-  // save note to state savedNote, and push the note to firebase 
-  const saveNote = () => {
-    // dont want pass by reference; want pass by value
-    // have to spread out so these two states dont become linked
-
-    // setSavedNote([...allEntries])
-    // dbRef.push(savedNote)
-
+  const saveNote = (event) => {
+    event.preventDefault();
     dbRef.push([...allEntries])
   }
 
+  const sampleText = ['The Winner Takes It All', "Thank You For The Music", "SOS", "Fernando"]
 
   return (
     <div className="App wrapper">
@@ -91,14 +77,15 @@ function App() {
             numberOfEntries.map((index) => {
               return (
                 <Rows
-                  // index={index}
+                  index={index}
                   updateEntry={setNewEntryAndIndex}
+                  sampleText ={sampleText[index]}
                 />
               )
             })
           }
         </ol>
-        <button onClick={saveNote}>Save Note To Firebase</button>
+        <button onClick={(event) => saveNote(event)}>Save Note To Firebase</button>
       </form>
 
 
