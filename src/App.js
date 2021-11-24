@@ -10,32 +10,33 @@ function App() {
   //get ALL firebase notes on initial startup, so app can display them
   // any new notes saved by user (ie sent to firebase) gets added to the front of this list
   const dbRef = firebase.database().ref();
-  const [firebaseNotes, setFirebaseNotes] = useState([]);
-  const [firebaseNotesId, setFirebaseNotesId] = useState([]);
+  // const [firebaseNotes, setFirebaseNotes] = useState([]);
+  // const [firebaseNotesId, setFirebaseNotesId] = useState([]);
 
 
   // OUTDATED IDEA/ NOT IN USE
   // link to savedNote state bc every time a note is saved, its also pushed to firebase so we have a new note to display
-  useEffect(() => {
 
-    dbRef.on('value', (firebaseData) => {
+  // useEffect(() => {
 
-      const allFirebaseNotes = firebaseData.val();
+  //   dbRef.on('value', (firebaseData) => {
 
-      let tempIds = [];
-      let tempNotes = [];
+  //     const allFirebaseNotes = firebaseData.val();
 
-      for (let id in allFirebaseNotes) {
-        tempIds.push(id)
-        tempNotes.push(allFirebaseNotes[id])
-      }
+  //     let tempIds = [];
+  //     let tempNotes = [];
 
-      // firebase adds newest to the bottom, so now reverse it to get newest note (and newest id) at the top
-      setFirebaseNotes(tempNotes.reverse());
-      setFirebaseNotesId(tempIds.reverse());
-    })
+  //     for (let id in allFirebaseNotes) {
+  //       tempIds.push(id)
+  //       tempNotes.push(allFirebaseNotes[id])
+  //     }
 
-  }, [])
+  //     // firebase adds newest to the bottom, so now reverse it to get newest note (and newest id) at the top
+  //     setFirebaseNotes(tempNotes.reverse());
+  //     setFirebaseNotesId(tempIds.reverse());
+  //   })
+
+  // }, [])
 
 
 
@@ -129,11 +130,11 @@ function App() {
 
       <button onClick={saveNote}>Save Note To Firebase</button>
 
-      {
-        firebaseNotes.map((note, index) => {
-          return (<Note noteData={note} />)
-        })
-      }
+      
+
+      <Note dbRef = {dbRef} />
+
+      
 
 
 

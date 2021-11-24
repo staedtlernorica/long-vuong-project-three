@@ -1,20 +1,39 @@
+import { useState, useEffect } from "react";
+import DisplayNote from "./DisplayNote";
+
 function Note(props) {
+
+    const dbRef = props.dbRef;
+    const [allNotesAndIds, setAllNotesAndIds] = useState([]);
+
+    useEffect(() => {
+        dbRef.on('value', (response) => {
+
+            const newState = []
+            const data = response.val();
+
+            for (let property in data) {
+                newState.push({
+                    noteId: property,
+                    noteContent: data[property]
+                });
+            }
+
+            setAllNotesAndIds(newState);
+        })
+    }, [])
 
     return (
         <div>
-            <ul>
-
             {
-                props.noteData.map((entry) => {
+                allNotesAndIds.map((noteObj) => {
                     return(
-                        <li>{entry}</li>
-                        )
+                        <DisplayNote noteObj={noteObj}/>
+                    )
                 })
             }
-            </ul>
         </div>
     )
-
 }
 
 export default Note;
