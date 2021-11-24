@@ -4,50 +4,19 @@ function Rows(props) {
 
   const [userInput, setUserInput] = useState('');
 
-
-  // WHY DOESNT THIS UPDATE IMMEDIATELY AS I EXPECTED IT TO
-  // SHOULDN'T THE USEEFFECT AUTOMATICALLY UPDATE ALLINPUTS SINCE A STATE WAS CHANGED
-
-  // ALLUSERINPUTS ONLY UPDATES AND CAPTURE ALL DATA WHEN THE NUMBER ENTRY IS CLICKED
-
-  // lets user inputs their info into the input field
-  const handleTextInput = (event) => {
-    // console.log(props.index)
-    // console.log(event.target.value)
-
-
-    // update userInput to be whatever the user just typed
-    setUserInput(event.target.value)
-
-    // list of all inputs
-    let placeholder = props.allInputs;
-    placeholder[props.index] = event.target.value;
-
-    props.func(placeholder);
-
-    // console.log(userInput)
-    // console.log(props.allInputs)
-    // props.func(event.target.value)
-
-  }
-
-
+  // updates what the user typed, and the index/where the user just typed
   useEffect(() => {
-    let placeholder = props.allInputs;
-    placeholder[props.index] = userInput;
-
-    props.func(placeholder);
-  })
-
+    props.updateEntry([userInput, props.index])
+  }, [userInput])
 
   return (
-    <div>
+    <li>
 
       <label htmlFor="">{props.index + 1}.</label>
-      <input type="text" onChange={handleTextInput} value={userInput} />
-      <button>done</button>
+      <input type="text" onChange={(e) => setUserInput(e.target.value)} value={userInput} />
+      {/* <button>done</button> */}
 
-    </div>
+    </li>
   );
 
 }
