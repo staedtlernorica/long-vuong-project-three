@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import DisplayNote from "./DisplayNote";
+import firebase from './firebase';
 
 function Note(props) {
 
-    const dbRef = props.dbRef;
+    const dbRef = firebase.database().ref();
     const [allNotesAndIds, setAllNotesAndIds] = useState([]);
 
     useEffect(() => {

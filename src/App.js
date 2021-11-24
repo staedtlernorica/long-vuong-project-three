@@ -74,30 +74,36 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App wrapper">
 
-      <h2>
-        I want
-        <input type="number" onChange={handleEntriesInput} min={1} value={numberOfEntries.length} />
-        entries
-      </h2>
+      <h1>My To Do App</h1>
 
-      <ul>
-        {
-          numberOfEntries.map((index) => {
-            return (
-              <Rows
-                index={index}
-                updateEntry={setNewEntryAndIndex}
-              />
-            )
-          })
-        }
-      </ul>
+      <form className="userEntry">
+        <h2>New Note</h2>
+        <h3>
+          I want
+          <input type="number" onChange={handleEntriesInput} min={1} value={numberOfEntries.length} />
+          entries in my new note
+        </h3>
 
-      <button onClick={saveNote}>Save Note To Firebase</button>
+        <ol>
+          {
+            numberOfEntries.map((index) => {
+              return (
+                <Rows
+                  // index={index}
+                  updateEntry={setNewEntryAndIndex}
+                />
+              )
+            })
+          }
+        </ol>
+        <button onClick={saveNote}>Save Note To Firebase</button>
+      </form>
 
-      <Note dbRef = {dbRef} />
+
+      <h2>Previous Notes</h2>
+      <Note />
 
     </div>
   );

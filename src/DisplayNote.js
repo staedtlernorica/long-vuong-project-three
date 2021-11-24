@@ -7,14 +7,14 @@ function DisplayNote(props) {
     const removeNote = (whatToRemove) => {
 
         const dbRef = firebase.database().ref();
-    
-        // chain two firebase methods to remove an item
         dbRef.child(whatToRemove).remove();
       }
 
     return (
-        <ul>
-            <button onClick={() => removeNote(noteId)}>Remove {noteId} From Firebase</button>
+        <ol className="note">
+            {/* <button onClick={() => removeNote(noteId)}>Remove {noteId} From Firebase</button> */}
+            {/* <button onClick={() => removeNote(noteId)}>Remove Note</button> */}
+            <i class="fas fa-times fa-2x" onClick={() => removeNote(noteId)}></i>
             {
                 props.noteObj.noteContent.map((individualEntry) => {
                     return (
@@ -22,7 +22,7 @@ function DisplayNote(props) {
                     )
                 })
             }
-        </ul>
+        </ol>
     )
 }
 
