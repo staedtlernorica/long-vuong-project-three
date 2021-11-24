@@ -46,42 +46,52 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
 body{
-  background-color: rgb(243, 150, 150);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px 0;
+  background-color: #023047;
+  padding: 30px 0 0 0;
+  color: #ffb703;
 }
 
 /* mobile oriented wrapper */
 .wrapper {
   max-width: 1200px;
+  min-height: 270px;
   width: 95%;
   margin: 0 auto;
   
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h1, h2, h3, h4{
+h1, h3, h4{
   margin: 0;
   padding: 0;
+  margin: 20px 0;
+  color: #fb8500;
 }
 
 ol{
   margin: 20px 0;
+  margin-top: 0;
   padding: 0;
 }
 
 li{
   font-size: 20px;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-left: 15px;
 }
 
 .userEntry{
-  border: black solid 4px;
-  border-radius: 10px;
-  padding: 25px 0;
-  margin: 30px 0;
+  border: #219ebc solid 4px;
+  border-radius: 10px 10px 45px 10px;
+  padding: 25px 5px;
+  width: 100%;
+}
+
+h2{
+  margin-top: 35px;
+  margin-bottom: 10px;
 }
 
 input[type="number"]{
@@ -89,13 +99,21 @@ input[type="number"]{
   margin: 10px;
 }
 
+button{
+  padding: 10px;
+  margin: 5px;
+  border: #219ebc solid 4px;
+  border-radius: 15px 5px;
+  background-color: #ffb703;
+  color: #023047;
+  font-weight: bold;
+}
+
 .note{
-  border: black solid 4px;
-  border-radius: 20px;
-  padding: 10px 40px 25px 40px;
-  /* min-width: 310px;
-  max-width: 400px; */
-  margin: 20px 0;
+  border: #219ebc solid 4px;
+  border-radius: 15px;
+  padding: 5px 25px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -107,8 +125,33 @@ input[type="number"]{
   margin-right: -20px;
   margin-bottom: 10px;
   cursor: pointer;
+  transition: color 0.1s linear;
+}
+
+.note i:hover{
+  color: red;
+}
+
+.note hr{
+  width: 90%;
+  border: 3px solid #fb8500;
 }
 
 .note button{
   max-width: 90px;
+}
+
+footer{
+  background-color: #8ecae6;
+  margin-top: 35px;
+  width: 100%;
+  text-align: center;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+footer h3{
+  color:#023047 ;
 }

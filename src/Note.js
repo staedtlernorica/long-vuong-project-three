@@ -25,7 +25,7 @@ function Note(props) {
     }, [])
 
     return (
-        <div>
+        <div  className="note">
             {
                 allNotesAndIds.map((noteObj) => {
                     return(

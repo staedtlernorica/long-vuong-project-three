@@ -3,6 +3,7 @@ import "./App.css";
 import Rows from './Rows';
 import firebase from './firebase';
 import Note from './Note'
+import Footer from "./Footer";
 
 function App() {
 
@@ -72,42 +73,45 @@ function App() {
   const sampleText = ['The Winner Takes It All', "Thank You For The Music", "SOS", "Fernando"]
 
   return (
-    <div className="App wrapper">
+    <>
+      <div className="App wrapper">
 
-      <h1>My To Do App</h1>
+        <h1>My To Do App</h1>
 
-      <form className="userEntry">
         <h2>New Note</h2>
-        {/* <h3>
+        <form className="userEntry">
+          {/* <h3>
           I want
           <input type="number" onChange={handleEntriesInput} min={1} value={numberOfEntries.length} />
           entries in my new note
         </h3> */}
 
-        <button value={1} onClick={(event) => changeNumberOfEntries(event)}>Add Entry</button>
-        <button value='-1' onClick={(event) => changeNumberOfEntries(event)}>Remove Entry</button>
+          <button value={1} onClick={(event) => changeNumberOfEntries(event)}>Add Entry</button>
+          <button value='-1' onClick={(event) => changeNumberOfEntries(event)}>Remove Entry</button>
 
-        <ol>
-          {
-            numberOfEntries.map((index) => {
-              return (
-                <Rows
-                  index={index}
-                  updateEntry={setNewEntryAndIndex}
-                  sampleText={sampleText[index]}
-                />
-              )
-            })
-          }
-        </ol>
-        <button onClick={(event) => saveNote(event)}>Save Note To Firebase</button>
-      </form>
+          <ol>
+            {
+              numberOfEntries.map((index) => {
+                return (
+                  <Rows
+                    index={index}
+                    updateEntry={setNewEntryAndIndex}
+                    sampleText={sampleText[index]}
+                  />
+                )
+              })
+            }
+          </ol>
+          <button onClick={(event) => saveNote(event)}>Save Note To Firebase</button>
+        </form>
 
 
-      <h2>Previous Notes</h2>
-      <Note />
+        <h2>Previous Notes</h2>
+        <Note />
 
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 
