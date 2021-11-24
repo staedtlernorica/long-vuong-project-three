@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Rows from './Rows';
 import firebase from './firebase';
+import Note from './Note'
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
   const [firebaseNotesId, setFirebaseNotesId] = useState([]);
 
 
-
+  // OUTDATED IDEA/ NOT IN USE
   // link to savedNote state bc every time a note is saved, its also pushed to firebase so we have a new note to display
   useEffect(() => {
 
@@ -80,20 +81,19 @@ function App() {
   }
 
 
+  // WHY DOES THIS WORKING WITHOUT THE COMMENTED STUFF
 
-
-    // this is always the most recent note the user saved
-    // const [savedNote, setSavedNote] = useState([]);
+  // this is always the most recent note the user saved
+  // const [savedNote, setSavedNote] = useState([]);
 
   // save note to state savedNote, and push the note to firebase 
   const saveNote = () => {
     // dont want pass by reference; want pass by value
     // have to spread out so these two states dont become linked
 
-
     // setSavedNote([...allEntries])
     // dbRef.push(savedNote)
-    
+
     dbRef.push([...allEntries])
   }
 
@@ -129,20 +129,12 @@ function App() {
 
       <button onClick={saveNote}>Save Note To Firebase</button>
 
+      {
+        firebaseNotes.map((note, index) => {
+          return (<Note noteData={note} />)
+        })
+      }
 
-      <div>
-        {
-          firebaseNotes.map((note) => {
-
-            return (
-              // add note component here
-              <li>
-                <p>{note}</p>
-                </li>
-            )
-          })
-        }
-      </div>
 
 
     </div>
