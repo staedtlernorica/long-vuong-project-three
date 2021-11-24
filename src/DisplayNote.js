@@ -14,7 +14,7 @@ function DisplayNote(props) {
         <ol className="note">
             {/* <button onClick={() => removeNote(noteId)}>Remove {noteId} From Firebase</button> */}
             {/* <button onClick={() => removeNote(noteId)}>Remove Note</button> */}
-            <i class="fas fa-times fa-2x" onClick={() => removeNote(noteId)}></i>
+            <i className="fas fa-times fa-2x" onClick={() => removeNote(noteId)}></i>
             {
                 props.noteObj.noteContent.map((individualEntry) => {
                     return (
