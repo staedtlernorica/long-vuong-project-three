@@ -25,19 +25,6 @@ function App() {
   }
 
 
-  useEffect(() => {
-
-    let placeholder = allEntries;
-
-    if (allEntries.length - numberOfEntries.length !== 0) {
-      allEntries.length < numberOfEntries.length
-        ? placeholder.push('')
-        : placeholder.pop();
-    }
-
-  }, [numberOfEntries])
-
-
 
   // whenver user types something in any input field, this effect updates what the user typed and the index of the field in which it was typed
   useEffect(() => {
@@ -66,10 +53,10 @@ function App() {
 
         <h2>New Note</h2>
         <form className="userEntry">
-          <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabindex="0">
+          <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
             Add Entry
           </button>
-          <button value='-1' onClick={(event) => changeNumberOfEntries(event)} tabindex="0">
+          <button value='-1' onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
             Remove Entry
           </button>
 
@@ -85,7 +72,7 @@ function App() {
               })
             }
           </ol>
-          <button onClick={(event) => saveNote(event)} tabindex="0">
+          <button onClick={(event) => saveNote(event)} tabIndex="0">
             Save Note To Firebase
           </button>
         </form>
