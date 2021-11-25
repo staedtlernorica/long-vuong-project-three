@@ -4,10 +4,10 @@ import firebase from './firebase';
 
 function Note() {
 
-    const dbRef = firebase.database().ref();
     const [allNotesAndIds, setAllNotesAndIds] = useState([]);
-
+    
     useEffect(() => {
+        const dbRef = firebase.database().ref();
         dbRef.on('value', (response) => {
 
             const newState = []
