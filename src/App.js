@@ -6,32 +6,49 @@ import Note from './Note'
 import Footer from "./Footer";
 
 function App() {
-
+  
+  // keep tracks of number of entries on screen 
   const [numberOfEntries, setNumberOfEntries] = useState([0, 1, 2]);
+  
+  // keeps track of (all) the entries themselves
+  // eg if row1/row2/row3 entries are abc/123/a1b2c3
+  // allEntries will take the form ["abc" , "123", "a1b2c3"]
   const [allEntries, setAllEntries] = useState(['', '', '']);
 
 
+  // adds or remove rows from "New Note" 
   const changeNumberOfEntries = (event) => {
     event.preventDefault();
-
+    
+    // either a 1 or -1
     const valToAdd = Number(event.target.value)
-    let newNumberOfRows = numberOfEntries.length + (valToAdd);
-    newNumberOfRows = [...Array(newNumberOfRows).keys()]
 
-    setNumberOfEntries(newNumberOfRows)
+    // without this check, removing entry after there's none left  causes an error; .map() dont like empty or negative inputs 
+    if (numberOfEntries.length + (valToAdd) >= 0) {
 
-    let newAllEntries = [...allEntries];
+      // sets new number of row; 
+      // [0,1,2] >>> [0,1,2,3]  if adding entry
+      // [0,1,2,4] >>> [0,1,2]  if removing entry
+      let newNumberOfRows = numberOfEntries.length + (valToAdd);
+      newNumberOfRows = [...Array(newNumberOfRows).keys()]
 
-    valToAdd === 1
-      ? newAllEntries.push('')
-      : newAllEntries.pop();
+      // add new blank entry at the end or remove last entry in array 
+      let newAllEntries = [...allEntries];
+      (valToAdd === 1)
+        ? newAllEntries.push('')
+        : newAllEntries.pop();
 
-    setAllEntries(newAllEntries);
+      setNumberOfEntries(newNumberOfRows)
+      setAllEntries(newAllEntries);
+    }
   }
 
+  // push everything on screen to firebase
   const saveNote = (event) => {
     event.preventDefault();
     const dbRef = firebase.database().ref();
+
+    // NEEEEEEEEED THE ... OR IT WILL ALL BUNCH TOGETHER
     dbRef.push([...allEntries])
 
   }

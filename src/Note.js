@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import DisplayNote from "./DisplayNote";
 import firebase from './firebase';
 
+// gets all data from firebase and display them as notes
 function Note() {
 
+    // firebase data after its been re-organized into an array
     const [allNotesAndIds, setAllNotesAndIds] = useState([]);
-    
+
     useEffect(() => {
         const dbRef = firebase.database().ref();
         dbRef.on('value', (response) => {
@@ -13,6 +15,7 @@ function Note() {
             const newState = []
             const data = response.val();
 
+            // organize firebase data into an array so can iterate
             for (let property in data) {
                 newState.push({
                     noteId: property,
@@ -20,12 +23,16 @@ function Note() {
                 });
             }
 
-            // reverse so newest note appear on top
+            // reverse order so newest note appear on top
             setAllNotesAndIds(newState.reverse());
         })
     }, [])
 
     return (
+        // allNotesAndIds now takes the form of objects within an array
+        // [{note1}, {note2}, {note3}]
+        // each object contains the content, and the id of the note
+        // ie note1 === {noteId: 'mumbojumbo', noteContent: ['todo1', 'todo2', ...]}
         allNotesAndIds.map((noteObj) => {
             return (
                 <DisplayNote noteObj={noteObj} />
