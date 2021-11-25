@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import firebase from './firebase';
 import Rows from './Rows';
@@ -7,11 +7,8 @@ import Footer from "./Footer";
 
 function App() {
 
-  
-
   const [numberOfEntries, setNumberOfEntries] = useState([0, 1, 2]);
-  const [allEntries, setAllEntries] = useState(['']);
-  const [newEntryAndIndex, setNewEntryAndIndex] = useState([]);
+  const [allEntries, setAllEntries] = useState(['','','']);
 
 
   const changeNumberOfEntries = (event) => {
@@ -24,23 +21,11 @@ function App() {
     setNumberOfEntries(newNumberOfRows)
   }
 
-
-
-  // whenver user types something in any input field, this effect updates what the user typed and the index of the field in which it was typed
-  useEffect(() => {
-    let placeholder = allEntries;
-    placeholder[newEntryAndIndex[1]] = newEntryAndIndex[0];
-    setAllEntries(placeholder);
-  }, [newEntryAndIndex])
-
-
   const saveNote = (event) => {
     event.preventDefault();
     const dbRef = firebase.database().ref();
     dbRef.push([...allEntries])
   }
-
-
 
   return (
     <>
@@ -65,8 +50,9 @@ function App() {
               numberOfEntries.map((index) => {
                 return (
                   <Rows
-                    index={index}
-                    updateEntry={setNewEntryAndIndex}
+                    index = {index}
+                    allEntries = {allEntries}
+                    setAllEntries = {setAllEntries}
                   />
                 )
               })
