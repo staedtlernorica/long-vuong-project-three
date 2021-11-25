@@ -8,7 +8,7 @@ import Footer from "./Footer";
 function App() {
 
   const [numberOfEntries, setNumberOfEntries] = useState([0, 1, 2]);
-  const [allEntries, setAllEntries] = useState(['','','']);
+  const [allEntries, setAllEntries] = useState(['', '', '']);
 
 
   const changeNumberOfEntries = (event) => {
@@ -19,12 +19,21 @@ function App() {
     newNumberOfRows = [...Array(newNumberOfRows).keys()]
 
     setNumberOfEntries(newNumberOfRows)
+
+    let newAllEntries = [...allEntries];
+
+    valToAdd === 1
+      ? newAllEntries.push('')
+      : newAllEntries.pop();
+
+    setAllEntries(newAllEntries);
   }
 
   const saveNote = (event) => {
     event.preventDefault();
     const dbRef = firebase.database().ref();
     dbRef.push([...allEntries])
+
   }
 
   return (
@@ -50,9 +59,9 @@ function App() {
               numberOfEntries.map((index) => {
                 return (
                   <Rows
-                    index = {index}
-                    allEntries = {allEntries}
-                    setAllEntries = {setAllEntries}
+                    index={index}
+                    allEntries={allEntries}
+                    setAllEntries={setAllEntries}
                   />
                 )
               })
