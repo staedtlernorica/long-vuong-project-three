@@ -7,10 +7,11 @@ import Footer from "./Footer";
 
 function App() {
 
-  const dbRef = firebase.database().ref();
+  
 
   const [numberOfEntries, setNumberOfEntries] = useState([0, 1, 2]);
   const [allEntries, setAllEntries] = useState(['']);
+  const [newEntryAndIndex, setNewEntryAndIndex] = useState([]);
 
 
   const changeNumberOfEntries = (event) => {
@@ -37,7 +38,6 @@ function App() {
   }, [numberOfEntries])
 
 
-  const [newEntryAndIndex, setNewEntryAndIndex] = useState([]);
 
   // whenver user types something in any input field, this effect updates what the user typed and the index of the field in which it was typed
   useEffect(() => {
@@ -49,10 +49,11 @@ function App() {
 
   const saveNote = (event) => {
     event.preventDefault();
+    const dbRef = firebase.database().ref();
     dbRef.push([...allEntries])
   }
 
-  const sampleText = ['The Winner Takes It All', "Thank You For The Music", "SOS", "Fernando"]
+
 
   return (
     <>
@@ -79,7 +80,6 @@ function App() {
                   <Rows
                     index={index}
                     updateEntry={setNewEntryAndIndex}
-                    sampleText={sampleText[index]}
                   />
                 )
               })

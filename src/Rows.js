@@ -11,11 +11,7 @@ function Rows(props) {
 
   return (
     <li>
-
-      {/* <label htmlFor="">{props.index + 1}.</label> */}
       <input type="text" onChange={(e) => setUserInput(e.target.value)} value={userInput} />
-      {/* <button>done</button> */}
-
     </li>
   );
 
