@@ -5,7 +5,7 @@ function Footer() {
     return (
         <footer>
             <h3>
-                Created at Juno College {currentYear.getUTCFullYear()}
+                Created at <a href="https://junocollege.com/">Juno College</a> {currentYear.getUTCFullYear()}
             </h3>
         </footer>
     )

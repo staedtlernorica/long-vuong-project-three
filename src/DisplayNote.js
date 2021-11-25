@@ -10,20 +10,35 @@ function DisplayNote(props) {
         dbRef.child(whatToRemove).remove();
     }
 
+
+    const toggleCrossOut = (event) => {
+        event.preventDefault();
+
+        let entryClass = event.target.className;
+        entryClass === 'done'
+            ? event.target.className = 'notDone'
+            : event.target.className = 'done'
+
+    }
+
     return (
-        <>
-            <i className="fas fa-times fa-2x" onClick={() => removeNote(noteId)}></i>
-            <hr />
-            <ol>
-                {
-                    props.noteObj.noteContent.map((individualEntry) => {
-                        return (
-                            <li>{individualEntry}</li>
-                        )
-                    })
-                }
-            </ol>
-        </>
+            <div className="note">
+                <button>
+                    <i className="fas fa-times fa-2x" onClick={() => removeNote(noteId)} tabindex="0" aria-label='delete note'></i>
+                </button>
+                <hr />
+                <ol>
+                    {
+                        props.noteObj.noteContent.map((individualEntry) => {
+                            return (
+                                <li onClickCapture={(event) => toggleCrossOut(event)} className="undone" tabindex="0">
+                                    {individualEntry}
+                                </li>
+                            )
+                        })
+                    }
+                </ol>
+            </div>
     )
 }
 

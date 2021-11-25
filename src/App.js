@@ -1,25 +1,29 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Rows from './Rows';
 import firebase from './firebase';
+import Rows from './Rows';
 import Note from './Note'
 import Footer from "./Footer";
 
 function App() {
 
-  // ================STUFF CONNECTED TO FIREBASE=========================
-  //get ALL firebase notes on initial startup, so app can display them
-  // any new notes saved by user (ie sent to firebase) gets added to the front of this list
   const dbRef = firebase.database().ref();
 
-
-
-
-  // ====================LOCAL STUFF===================================
   const [numberOfEntries, setNumberOfEntries] = useState([0, 1, 2]);
   const [allEntries, setAllEntries] = useState(['']);
 
-  // add or remove entries based user 
+
+  const changeNumberOfEntries = (event) => {
+    event.preventDefault();
+
+    const valToAdd = Number(event.target.value)
+    let newNumberOfRows = numberOfEntries.length + (valToAdd);
+    newNumberOfRows = [...Array(newNumberOfRows).keys()]
+
+    setNumberOfEntries(newNumberOfRows)
+  }
+
+
   useEffect(() => {
 
     let placeholder = allEntries;
@@ -33,7 +37,6 @@ function App() {
   }, [numberOfEntries])
 
 
-
   const [newEntryAndIndex, setNewEntryAndIndex] = useState([]);
 
   // whenver user types something in any input field, this effect updates what the user typed and the index of the field in which it was typed
@@ -42,27 +45,6 @@ function App() {
     placeholder[newEntryAndIndex[1]] = newEntryAndIndex[0];
     setAllEntries(placeholder);
   }, [newEntryAndIndex])
-
-
-  // const handleEntriesInput = (event) => {
-
-  //   const entries = Number(event.target.value);
-  //   // from here https://stackoverflow.com/a/33352604/6030118
-  //   const x = [...Array(entries).keys()]
-  //   setNumberOfEntries(x);
-
-  //   console.log(entries, x)
-  // }
-
-  const changeNumberOfEntries = (event) => {
-    event.preventDefault();
-
-    const valToAdd = Number(event.target.value)
-    let newNumberOfRows = numberOfEntries.length + (valToAdd);
-    const x = [...Array(newNumberOfRows).keys()]
-
-    setNumberOfEntries(x)
-  }
 
 
   const saveNote = (event) => {
@@ -74,20 +56,21 @@ function App() {
 
   return (
     <>
+      <i className="fas fa-thumbtack fa-3x"></i>
       <div className="App wrapper">
 
         <h1>My To Do App</h1>
+        <p>P.S.: Check this app on 320px only!!!</p>
+        <p>Not responsible 4 bad exp &gt;320px &gt;=( </p>
 
         <h2>New Note</h2>
         <form className="userEntry">
-          {/* <h3>
-          I want
-          <input type="number" onChange={handleEntriesInput} min={1} value={numberOfEntries.length} />
-          entries in my new note
-        </h3> */}
-
-          <button value={1} onClick={(event) => changeNumberOfEntries(event)}>Add Entry</button>
-          <button value='-1' onClick={(event) => changeNumberOfEntries(event)}>Remove Entry</button>
+          <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabindex="0">
+            Add Entry
+          </button>
+          <button value='-1' onClick={(event) => changeNumberOfEntries(event)} tabindex="0">
+            Remove Entry
+          </button>
 
           <ol>
             {
@@ -102,11 +85,13 @@ function App() {
               })
             }
           </ol>
-          <button onClick={(event) => saveNote(event)}>Save Note To Firebase</button>
+          <button onClick={(event) => saveNote(event)} tabindex="0">
+            Save Note To Firebase
+          </button>
         </form>
 
-
         <h2>Previous Notes</h2>
+        <p>Click finished entry to cross out</p>
         <Note />
 
       </div>

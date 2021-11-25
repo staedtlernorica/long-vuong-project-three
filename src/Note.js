@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import DisplayNote from "./DisplayNote";
 import firebase from './firebase';
 
-function Note(props) {
+function Note() {
 
     const dbRef = firebase.database().ref();
     const [allNotesAndIds, setAllNotesAndIds] = useState([]);
@@ -20,20 +20,17 @@ function Note(props) {
                 });
             }
 
-            setAllNotesAndIds(newState);
+            // reverse so newest note appear on top
+            setAllNotesAndIds(newState.reverse());
         })
     }, [])
 
     return (
-        <div  className="note">
-            {
-                allNotesAndIds.map((noteObj) => {
-                    return(
-                        <DisplayNote noteObj={noteObj}/>
-                    )
-                })
-            }
-        </div>
+        allNotesAndIds.map((noteObj) => {
+            return (
+                <DisplayNote noteObj={noteObj} />
+            )
+        })
     )
 }
 
