@@ -11,6 +11,13 @@ body{
   color: #ffb703;
 }
 
+div#root{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 i:not(.note i){
   color: #219ebc;
   margin: 10px 0 0 10px;
