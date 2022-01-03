@@ -28,11 +28,10 @@ function PreviousNote(props) {
     }
 
 
+    // could also have user to click on edit icon, open a temp popup window, have user enter new entry, THEN save to firebase once user finished; so dont send every new keystroke to firebase
     function changeEntry(value, index) {
 
-        // go to id
-        // go to index
-        // set index
+        firebase.database().ref(`${noteId}/${index}/entry`).set(value)
     }
 
     return (
@@ -50,11 +49,13 @@ function PreviousNote(props) {
                                 <EntryRow
                                     id={props.noteObj.noteId}
                                     entry={individualEntry.entry}
-                                    insertNewEntry={changeEntry} />
+                                    insertNewEntry={changeEntry}
+                                    index={index} />
 
                                 <i class="fas fa-check-square fa-2x" onClick={(event) => changeNoteStatus(
                                     event, noteId, index
                                 )}></i>
+                                {/* <i class="fas fa-edit fa-2x"></i> */}
                             </li>
 
                         )

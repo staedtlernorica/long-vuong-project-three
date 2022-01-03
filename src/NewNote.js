@@ -62,7 +62,7 @@ function NewNote() {
             dbRef.push([...finalEntries])
             console.log([...finalEntries])
 
-        } else{
+        } else {
             alert('can\'t have empty entries')
         }
     }
@@ -71,9 +71,7 @@ function NewNote() {
     return (
 
         <>
-            <h2>NewNote component</h2>
-
-            <form className="userEntry" action=''>
+              <form className="userEntry" action=''>
 
                 <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
                     Add Entry
@@ -86,11 +84,14 @@ function NewNote() {
                     {
                         allEntries.map((entry, indexOf) => {
 
+
                             return (
-                                <EntryRow
-                                    index={indexOf}
-                                    insertNewEntry={insertNewEntry}
-                                />
+                                <li>
+                                    <EntryRow
+                                        index={indexOf}
+                                        insertNewEntry={insertNewEntry}
+                                    />
+                                </li>
                             )
                         })
                     }

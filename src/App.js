@@ -12,13 +12,13 @@ function App() {
     <>
       <div className="App wrapper">
 
-        {/* <h1>My To Do App</h1> */}
+        <h1>My To Do App</h1>
 
         <NewNote/>
        
 
-        {/* <h2>Previous Notes</h2>
-        <p>Click finished entry to cross out</p> */}
+        <h2>Previous Notes</h2>
+        {/* <p>Click finished entry to cross out</p> */}
         <AllPreviousNotes />
 
       </div>
