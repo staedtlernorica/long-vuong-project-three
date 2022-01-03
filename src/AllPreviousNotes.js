@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import DisplayNote from "./DisplayNote";
+import PreviousNote from "./PreviousNote";
 import firebase from './firebase';
 
 // gets all data from firebase and display them as notes
-function Note() {
+function AllPreviousNotes() {
 
     // firebase data after its been re-organized into an array
     const [allNotesAndIds, setAllNotesAndIds] = useState([]);
@@ -35,10 +35,10 @@ function Note() {
         // ie note1 === {noteId: 'mumbojumbo', noteContent: ['todo1', 'todo2', ...]}
         allNotesAndIds.map((noteObj) => {
             return (
-                <DisplayNote noteObj={noteObj} />
+                <PreviousNote noteObj={noteObj} />
             )
         })
     )
 }
 
-export default Note;
+export default AllPreviousNotes;
