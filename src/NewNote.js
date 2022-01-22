@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import firebase from './firebase';
-
 import EntryRow from './EntryRow';
+import AlertDiv from './AlertDiv';
 
 function NewNote() {
 
     // one empty string === one entry line
     const [allEntries, setAllEntries] = useState(['']);
+    const [showSaveAlert, setShowSaveAlert] = useState(false)
 
     // adds or remove rows from "New Note" 
     const changeNumberOfEntries = (event) => {
@@ -63,6 +64,10 @@ function NewNote() {
             dbRef.push([...finalEntries])
             console.log([...finalEntries])
 
+            // could probably make this into hooks
+            setShowSaveAlert(true);
+            setTimeout(() => { setShowSaveAlert(false) }, 2000)
+
         } else {
             alert('can\'t have empty entries')
         }
@@ -72,7 +77,7 @@ function NewNote() {
     return (
 
         <>
-              <form className="userEntry" action=''>
+            <form className="userEntry" action=''>
                 <ol>
                     {
                         allEntries.map((entry, indexOf) => {
@@ -100,6 +105,14 @@ function NewNote() {
                 </button>
             </form>
 
+            {
+                showSaveAlert === true ?
+                    <AlertDiv
+                        message={"Entry Saved"}
+                        saveOrDeleteAlert={'save'}
+                    /> :
+                    null
+            }
         </>
     )
 
