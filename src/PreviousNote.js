@@ -21,8 +21,12 @@ function PreviousNote(props) {
         let currentClass;
 
         event.target.parentElement.className === 'done'?
-        currentClass = 'notDone' :
+        currentClass = 'undone' :
         currentClass = 'done'
+
+        event.target.className === "fas fa-check-square fa-2x" ?
+        event.target.className = 'far fa-square fa-2x':
+        event.target.className = 'fas fa-check-square fa-2x'
 
         firebase.database().ref(`${id}/${index}/done`).set(currentClass)
     }
@@ -40,6 +44,10 @@ function PreviousNote(props) {
                 <i className="fas fa-times fa-2x" onClick={() => removeNote(noteId)} tabIndex="0" aria-label='delete note'></i>
             </button>
             <hr />
+            {/* <div className='header'>
+                <h3>Tasks</h3>
+                <h3>Done</h3>
+            </div> */}
             <ol>
                 {
                     props.noteObj.noteContent.map((individualEntry, index) => {
@@ -52,10 +60,13 @@ function PreviousNote(props) {
                                     insertNewEntry={changeEntry}
                                     index={index} />
 
-                                <i class="fas fa-check-square fa-2x" onClick={(event) => changeNoteStatus(
+
+                                {
+                                    
+                                }
+                                <i class="far fa-square fa-2x" onClick={(event) => changeNoteStatus(
                                     event, noteId, index
                                 )}></i>
-                                {/* <i class="fas fa-edit fa-2x"></i> */}
                             </li>
 
                         )

@@ -5,17 +5,21 @@ import AllPreviousNotes from './AllPreviousNotes'
 import Footer from "./Footer";
 
 function App() {
-  
-  
+
+
 
   return (
     <>
       <div className="App wrapper">
 
-        <h1>My To Do App</h1>
+        <div className="blingContainer">
+          <i class="far fa-gem fa-3x"></i>
+          <h1>Blinged out to-do list</h1>
+          <i class="far fa-gem fa-3x"></i>
+        </div>
 
-        <NewNote/>
-       
+        <NewNote />
+
 
         <h2>Previous Notes</h2>
         {/* <p>Click finished entry to cross out</p> */}

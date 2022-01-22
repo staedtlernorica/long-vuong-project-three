@@ -5,7 +5,8 @@ import EntryRow from './EntryRow';
 
 function NewNote() {
 
-    const [allEntries, setAllEntries] = useState(['', '']);
+    // one empty string === one entry line
+    const [allEntries, setAllEntries] = useState(['']);
 
     // adds or remove rows from "New Note" 
     const changeNumberOfEntries = (event) => {
@@ -72,18 +73,9 @@ function NewNote() {
 
         <>
               <form className="userEntry" action=''>
-
-                <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
-                    Add Entry
-                </button>
-                <button value={-1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
-                    Remove Entry
-                </button>
                 <ol>
-
                     {
                         allEntries.map((entry, indexOf) => {
-
 
                             return (
                                 <li>
@@ -96,16 +88,21 @@ function NewNote() {
                         })
                     }
                 </ol>
+                <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
+                    + Entry
+                </button>
+                <button value={-1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
+                    - Entry
+                </button>
+                <br />
                 <button onClick={(event) => saveNote(event)} tabIndex="0">
                     Save Note To Firebase
                 </button>
-
             </form>
 
         </>
     )
 
 }
-
 
 export default NewNote;
