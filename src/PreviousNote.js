@@ -9,16 +9,18 @@ function PreviousNote(props) {
     // note1 === {noteId: 'mumbojumbo', noteContent: ['todo1', 'todo2', ...]}
 
     const noteId = props.noteObj.noteId;
-    const [showSaveAlert, setShowSaveAlert] = useState(false)
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false)
+    const [lastDeletedNote, setLastDeletedNote] = useState({})
 
     // remove note/data from firebase based on id of the note
     const removeNote = (whatToRemove) => {
 
         const dbRef = firebase.database().ref();
+        console.log()
         dbRef.child(whatToRemove).remove();
 
-        setShowSaveAlert(true);
-        setTimeout(() => { setShowSaveAlert(false) }, 2000)
+        setShowDeleteAlert(true);
+        setTimeout(() => { setShowDeleteAlert(false) }, 2000)
     }
 
 
@@ -83,7 +85,7 @@ function PreviousNote(props) {
                 </ol>
             </div>
             {
-                showSaveAlert === true ?
+                showDeleteAlert === true ?
                     <AlertDiv
                         message={"Entry Deleted!"}
                         saveOrDeleteAlert={'delete'}
