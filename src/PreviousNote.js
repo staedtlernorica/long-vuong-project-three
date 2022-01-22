@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import firebase from './firebase';
 import EntryRow from './EntryRow'
+import AlertDiv from './AlertDiv';
 
 function PreviousNote(props) {
 
@@ -7,12 +9,16 @@ function PreviousNote(props) {
     // note1 === {noteId: 'mumbojumbo', noteContent: ['todo1', 'todo2', ...]}
 
     const noteId = props.noteObj.noteId;
+    const [showSaveAlert, setShowSaveAlert] = useState(false)
 
     // remove note/data from firebase based on id of the note
     const removeNote = (whatToRemove) => {
 
         const dbRef = firebase.database().ref();
         dbRef.child(whatToRemove).remove();
+
+        setShowSaveAlert(true);
+        setTimeout(() => { setShowSaveAlert(false) }, 2000)
     }
 
 
@@ -39,42 +45,52 @@ function PreviousNote(props) {
     }
 
     return (
-        <div className="note">
-            <button>
-                <i className="fas fa-times fa-2x" onClick={() => removeNote(noteId)} tabIndex="0" aria-label='delete note'></i>
-            </button>
-            <hr />
-            {/* <div className='header'>
+        <>
+            <div className="note">
+                <button>
+                    <i className="fas fa-times fa-2x" onClick={() => removeNote(noteId)} tabIndex="0" aria-label='delete note'></i>
+                </button>
+                <hr />
+                {/* <div className='header'>
                 <h3>Tasks</h3>
                 <h3>Done</h3>
             </div> */}
-            <ol>
-                {
-                    props.noteObj.noteContent.map((individualEntry, index) => {
-                        return (
+                <ol>
+                    {
+                        props.noteObj.noteContent.map((individualEntry, index) => {
+                            return (
 
-                            <li className={individualEntry.done}>
-                                <EntryRow
-                                    id={props.noteObj.noteId}
-                                    entry={individualEntry.entry}
-                                    insertNewEntry={changeEntry}
-                                    index={index} />
+                                <li className={individualEntry.done}>
+                                    <EntryRow
+                                        id={props.noteObj.noteId}
+                                        entry={individualEntry.entry}
+                                        insertNewEntry={changeEntry}
+                                        index={index} />
 
-                                <i 
-                                // check doneness of task and give hollow square for undone/checked square vice versa
-                                class={individualEntry.done === 'done' ?
-                                        "fas fa-check-square fa-2x" :
-                                        "far fa-square fa-2x"
+                                    <i
+                                        // check doneness of task and give hollow square for undone/checked square vice versa
+                                        class={individualEntry.done === 'done' ?
+                                            "fas fa-check-square fa-2x" :
+                                            "far fa-square fa-2x"
 
-                                } onClick={(event) => changeNoteStatus(
-                                    event, noteId, index
-                                )}></i>
-                            </li>
-                        )
-                    })
-                }
-            </ol>
-        </div>
+                                        } onClick={(event) => changeNoteStatus(
+                                            event, noteId, index
+                                        )}></i>
+                                </li>
+                            )
+                        })
+                    }
+                </ol>
+            </div>
+            {
+                showSaveAlert === true ?
+                    <AlertDiv
+                        message={"Entry Deleted!"}
+                        saveOrDeleteAlert={'delete'}
+                    /> :
+                    null
+            }
+        </>
     )
 }
 
