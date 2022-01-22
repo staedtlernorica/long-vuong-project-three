@@ -20,13 +20,13 @@ function PreviousNote(props) {
 
         let currentClass;
 
-        event.target.parentElement.className === 'done'?
-        currentClass = 'undone' :
-        currentClass = 'done'
+        event.target.parentElement.className === 'done' ?
+            currentClass = 'undone' :
+            currentClass = 'done'
 
         event.target.className === "fas fa-check-square fa-2x" ?
-        event.target.className = 'far fa-square fa-2x':
-        event.target.className = 'fas fa-check-square fa-2x'
+            event.target.className = 'far fa-square fa-2x' :
+            event.target.className = 'fas fa-check-square fa-2x'
 
         firebase.database().ref(`${id}/${index}/done`).set(currentClass)
     }
@@ -60,15 +60,16 @@ function PreviousNote(props) {
                                     insertNewEntry={changeEntry}
                                     index={index} />
 
+                                <i 
+                                // check doneness of task and give hollow square for undone/checked square vice versa
+                                class={individualEntry.done === 'done' ?
+                                        "fas fa-check-square fa-2x" :
+                                        "far fa-square fa-2x"
 
-                                {
-                                    
-                                }
-                                <i class="far fa-square fa-2x" onClick={(event) => changeNoteStatus(
+                                } onClick={(event) => changeNoteStatus(
                                     event, noteId, index
                                 )}></i>
                             </li>
-
                         )
                     })
                 }
