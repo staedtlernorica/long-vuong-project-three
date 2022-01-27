@@ -8,6 +8,8 @@ function AllPreviousNotes() {
     // firebase data after its been re-organized into an array
     const [allNotesAndIds, setAllNotesAndIds] = useState([]);
 
+    const [lastDeletedNote, setLastDeletedNote] = useState('')
+
     useEffect(() => {
         const dbRef = firebase.database().ref();
         dbRef.on('value', (response) => {
@@ -28,16 +30,34 @@ function AllPreviousNotes() {
         })
     }, [])
 
+
+
     return (
         // allNotesAndIds now takes the form of objects within an array
         // [{note1}, {note2}, {note3}]
         // each object contains the content, and the id of the note
         // ie note1 === {noteId: 'mumbojumbo', noteContent: ['todo1', 'todo2', ...]}
-        allNotesAndIds.map((noteObj) => {
-            return (
-                <PreviousNote noteObj={noteObj} />
-            )
-        })
+
+        <>
+
+        {/* UNDO DELETE FUNCTIONALITY; COMEBACK SOON */}
+            {/* <button onClick={() => {
+                alert(lastDeletedNote)
+            }}>
+                Undo Delete
+            </button> */}
+            {
+
+                allNotesAndIds.map((noteObj) => {
+                    return (
+                        <PreviousNote 
+                        noteObj={noteObj} 
+                        setLastDeletedNote = {setLastDeletedNote}/>
+                    )
+                })
+            }
+        </>
+
     )
 }
 
