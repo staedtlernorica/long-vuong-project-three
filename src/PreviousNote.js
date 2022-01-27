@@ -25,9 +25,9 @@ function PreviousNote(props) {
             })
             .then(function (snapshot) {
 
-                let x = snapshot.val()
-                console.log(x[noteId])
-                props.setLastDeletedNote(x[noteId])
+                // let x = snapshot.val()
+                // console.log(x[noteId])
+                // props.setLastDeletedNote(x[noteId])
 
                 // have to group this in here
                 // if leave outside, async nature of execution will remove node, THEN setLast... cant grab the just removed node to temp store it
