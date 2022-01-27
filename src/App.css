@@ -99,6 +99,14 @@ li{
   z-index: 100;
 }
 
+.overlay{
+  position:fixed;
+    z-index:100;
+    width:100vw;
+    height:100vh;
+    background-color:rgba(0,0,0,0.7)
+}
+
 .save{
 
 }
@@ -119,18 +127,26 @@ li{
   margin-bottom: 50px;
 }
 
-input[type="text"]
-{
+input[type="text"], 
+textarea{
     background: transparent;
     border: none;
     border-bottom: 2px solid #219ebc;
     color: #ffb703;
     width: 80%;
     margin-right: 20px;
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
+textarea{
+  /* padding: 10px 0; */
+  /* margin-top: 30px; */
+  resize: none;
+}
 
-.done input,
+.done textarea,
 li.done{
   color: grey;
   text-decoration: line-through;
