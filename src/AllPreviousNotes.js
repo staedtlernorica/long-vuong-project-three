@@ -8,7 +8,7 @@ function AllPreviousNotes() {
     // firebase data after its been re-organized into an array
     const [allNotesAndIds, setAllNotesAndIds] = useState([]);
 
-    const [lastDeletedNote, setLastDeletedNote] = useState('')
+    // const [lastDeletedNote, setLastDeletedNote] = useState('')
 
     useEffect(() => {
         const dbRef = firebase.database().ref();

@@ -119,7 +119,7 @@ function NewNote() {
             {
                 showNoEmptyAlert === true ?
                     <AlertDiv
-                        message={"Can\'t have empty entry"}
+                        message={"Can't have empty entry"}
                         saveOrDeleteAlert={'save'}
                     /> :
                     null
