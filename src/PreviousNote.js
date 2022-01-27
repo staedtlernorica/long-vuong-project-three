@@ -9,16 +9,33 @@ function PreviousNote(props) {
     // note1 === {noteId: 'mumbojumbo', noteContent: ['todo1', 'todo2', ...]}
 
     const noteId = props.noteObj.noteId;
-    const [showSaveAlert, setShowSaveAlert] = useState(false)
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false)
+
 
     // remove note/data from firebase based on id of the note
-    const removeNote = (whatToRemove) => {
+    const removeNote = (noteId) => {
 
         const dbRef = firebase.database().ref();
-        dbRef.child(whatToRemove).remove();
+        // let deletedNote;
 
-        setShowSaveAlert(true);
-        setTimeout(() => { setShowSaveAlert(false) }, 2000)
+        
+        dbRef.get()
+            .then(function () {
+                return dbRef.once("value");
+            })
+            .then(function (snapshot) {
+
+                let x = snapshot.val()
+                console.log(x[noteId])
+                props.setLastDeletedNote(x[noteId])
+
+                // have to group this in here
+                // if leave outside, async nature of execution will remove node, THEN setLast... cant grab the just removed node to temp store it
+                dbRef.child(noteId).remove();
+            });
+
+        setShowDeleteAlert(true);
+        setTimeout(() => { setShowDeleteAlert(false) }, 2000)
     }
 
 
@@ -83,7 +100,7 @@ function PreviousNote(props) {
                 </ol>
             </div>
             {
-                showSaveAlert === true ?
+                showDeleteAlert === true ?
                     <AlertDiv
                         message={"Entry Deleted!"}
                         saveOrDeleteAlert={'delete'}

@@ -7,6 +7,7 @@ function NewNote() {
 
     // one empty string === one entry line
     const [allEntries, setAllEntries] = useState(['']);
+    const [showNoEmptyAlert, setShowNoEmptyAlert] = useState(false)
     const [showSaveAlert, setShowSaveAlert] = useState(false)
 
     // adds or remove rows from "New Note" 
@@ -69,7 +70,9 @@ function NewNote() {
             setTimeout(() => { setShowSaveAlert(false) }, 2000)
 
         } else {
-            alert('can\'t have empty entries')
+            // alert('can\'t have empty entries')
+            setShowNoEmptyAlert(true)
+            setTimeout(() => { setShowNoEmptyAlert(false) }, 2000)
         }
     }
 
@@ -109,6 +112,14 @@ function NewNote() {
                 showSaveAlert === true ?
                     <AlertDiv
                         message={"Entry Saved"}
+                        saveOrDeleteAlert={'save'}
+                    /> :
+                    null
+            }
+            {
+                showNoEmptyAlert === true ?
+                    <AlertDiv
+                        message={"Can\'t have empty entry"}
                         saveOrDeleteAlert={'save'}
                     /> :
                     null

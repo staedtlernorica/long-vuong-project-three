@@ -1,17 +1,20 @@
+import TextareaAutosize from "react-textarea-autosize";
+
 function EntryRow(props) {
 
+
+  // pass whatever user enters backup into NewNote or PreviousNote
   const handleEntry = (event) => {
     props.insertNewEntry(event.target.value, props.index)
   }
 
-
   return (
-
-      <input type="text" 
-      value={props.entry}
-      className={props.status} 
-      onChange={(event) => handleEntry(event)}/>
-
+    <>
+    {/* life saver: https://www.npmjs.com/package/react-textarea-autosize */}
+      <TextareaAutosize value={props.entry}
+        className={props.status}
+        onChange={(event) => handleEntry(event)}/>
+    </>
   );
 
 }
