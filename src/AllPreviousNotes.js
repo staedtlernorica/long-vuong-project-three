@@ -52,7 +52,8 @@ function AllPreviousNotes() {
                     return (
                         <PreviousNote 
                         noteObj={noteObj} 
-                        setLastDeletedNote = {setLastDeletedNote}/>
+                        // setLastDeletedNote = {setLastDeletedNote}
+                        />
                     )
                 })
             }
