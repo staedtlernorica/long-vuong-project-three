@@ -3,7 +3,7 @@ import firebase from './firebase';
 import EntryRow from './EntryRow';
 import AlertDiv from './AlertDiv';
 
-function NewNote() {
+function NewNote(props) {
 
     // one empty string === one entry line
     const [allEntries, setAllEntries] = useState(['']);
@@ -80,32 +80,38 @@ function NewNote() {
     return (
 
         <>
+            {/* <i className="fas fa-times fa-2x"></i> */}
             <form className="userEntry" action=''>
-                <ol>
-                    {
-                        allEntries.map((entry, indexOf) => {
 
-                            return (
-                                <li>
-                                    <EntryRow
-                                        index={indexOf}
-                                        insertNewEntry={insertNewEntry}
-                                    />
-                                </li>
-                            )
-                        })
-                    }
-                </ol>
-                <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
-                    + Entry
-                </button>
-                <button value={-1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
-                    - Entry
-                </button>
-                <br />
-                <button onClick={(event) => saveNote(event)} tabIndex="0">
-                    Save Note To Firebase
-                </button>
+                {/* no problem here, remove ol-li for consistency */}
+                {/* <ol> */}
+                {
+                    allEntries.map((entry, indexOf) => {
+
+                        return (
+                            // <li>
+                            <EntryRow
+                                index={indexOf}
+                                insertNewEntry={insertNewEntry}
+                            />
+                            // </li>
+                        )
+                    })
+                }
+                {/* </ol> */}
+
+                <div className="buttons">
+
+                    <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
+                        Add Task
+                    </button>
+                    <button value={-1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
+                        Remove Task
+                    </button>
+                    <button onClick={(event) => saveNote(event)} tabIndex="0">
+                        Save List
+                    </button>
+                </div>
             </form>
 
             {
