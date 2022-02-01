@@ -1,7 +1,7 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import firebase from './firebase';
 import EntryRow from './EntryRow'
-import AlertDiv from './AlertDiv';
+// import AlertDiv from './AlertDiv';
 
 function PreviousNote(props) {
 
@@ -9,7 +9,7 @@ function PreviousNote(props) {
     // note1 === {noteId: 'mumbojumbo', noteContent: ['todo1', 'todo2', ...]}
 
     const noteId = props.noteObj.noteId;
-    const [showDeleteAlert, setShowDeleteAlert] = useState(false)
+    // const [showDeleteAlert, setShowDeleteAlert] = useState(false)
 
 
     // remove note/data from firebase based on id of the note
@@ -18,7 +18,7 @@ function PreviousNote(props) {
         const dbRef = firebase.database().ref();
         // let deletedNote;
 
-        
+
         dbRef.get()
             .then(function () {
                 return dbRef.once("value");
@@ -34,16 +34,17 @@ function PreviousNote(props) {
                 dbRef.child(noteId).remove();
             });
 
-        setShowDeleteAlert(true);
-        setTimeout(() => { setShowDeleteAlert(false) }, 2000)
+        props.setShowDeleteAlert(true);
+        setTimeout(() => { props.setShowDeleteAlert(false) }, 2000)
     }
 
 
+    // change firebase node directly, which will automatically update the note's class
     const changeNoteStatus = (event, id, index) => {
 
         let currentClass;
 
-        event.target.parentElement.className === 'done' ?
+        event.target.parentElement.className === 'task done' ?
             currentClass = 'undone' :
             currentClass = 'done'
 
@@ -51,6 +52,7 @@ function PreviousNote(props) {
             event.target.className = 'far fa-square fa-2x' :
             event.target.className = 'fas fa-check-square fa-2x'
 
+        // console.log(`${id}/${index}/done`, currentClass)
         firebase.database().ref(`${id}/${index}/done`).set(currentClass)
     }
 
@@ -67,17 +69,17 @@ function PreviousNote(props) {
                 <button>
                     <i className="fas fa-times fa-2x" onClick={() => removeNote(noteId)} tabIndex="0" aria-label='delete note'></i>
                 </button>
-                <hr />
-                {/* <div className='header'>
-                <h3>Tasks</h3>
-                <h3>Done</h3>
-            </div> */}
-                <ol>
-                    {
-                        props.noteObj.noteContent.map((individualEntry, index) => {
-                            return (
 
-                                <li className={individualEntry.done}>
+                {/* commented out ol-li because of clikcing on button changed ol-li number bullet from top to bottom; dont want */}
+                {/* <ol> */}
+                {
+                    props.noteObj.noteContent.map((individualEntry, index) => {
+                        return (
+
+                            // <li>
+
+                                <div className={`task ${individualEntry.done}`}>
+
                                     <EntryRow
                                         id={props.noteObj.noteId}
                                         entry={individualEntry.entry}
@@ -93,20 +95,26 @@ function PreviousNote(props) {
                                         } onClick={(event) => changeNoteStatus(
                                             event, noteId, index
                                         )}></i>
-                                </li>
-                            )
-                        })
-                    }
-                </ol>
+                                </div>
+
+                            //</li>
+
+                        )
+                    })
+                }
+                {/* </ol> */}
             </div>
-            {
+
+            {/* moved out to AllPreviousNote so alert pop up is always on same level */}
+            {/* if here, popup is in Masonry grid and changes placement */}
+            {/* {
                 showDeleteAlert === true ?
                     <AlertDiv
                         message={"Entry Deleted!"}
                         saveOrDeleteAlert={'delete'}
                     /> :
                     null
-            }
+            } */}
         </>
     )
 }

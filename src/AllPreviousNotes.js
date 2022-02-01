@@ -2,11 +2,17 @@ import { useState, useEffect } from "react";
 import PreviousNote from "./PreviousNote";
 import firebase from './firebase';
 
+import AlertDiv from "./AlertDiv";
+
+import Masonry from 'react-masonry-css'
+
 // gets all data from firebase and display them as notes
 function AllPreviousNotes() {
 
     // firebase data after its been re-organized into an array
     const [allNotesAndIds, setAllNotesAndIds] = useState([]);
+
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false)
 
     // const [lastDeletedNote, setLastDeletedNote] = useState('')
 
@@ -31,6 +37,13 @@ function AllPreviousNotes() {
     }, [])
 
 
+    // masonry pixels-columns settings
+    const breakpointColumnsObj = {
+        default: 3,
+        1100: 2,
+        750: 1
+    };
+
 
     return (
         // allNotesAndIds now takes the form of objects within an array
@@ -40,23 +53,43 @@ function AllPreviousNotes() {
 
         <>
 
-        {/* UNDO DELETE FUNCTIONALITY; COMEBACK SOON */}
+            {/* UNDO DELETE FUNCTIONALITY; COMEBACK SOON */}
             {/* <button onClick={() => {
                 alert(lastDeletedNote)
             }}>
                 Undo Delete
             </button> */}
-            {
 
-                allNotesAndIds.map((noteObj) => {
-                    return (
-                        <PreviousNote 
-                        noteObj={noteObj} 
-                        // setLastDeletedNote = {setLastDeletedNote}
-                        />
-                    )
-                })
+            <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column">
+                {/* array of JSX items */}
+
+                {
+
+                    allNotesAndIds.map((noteObj) => {
+                        return (
+                            <PreviousNote
+                                noteObj={noteObj}
+                                setShowDeleteAlert={setShowDeleteAlert}
+                            // setLastDeletedNote = {setLastDeletedNote}
+                            />
+                        )
+                    })
+                }
+            </Masonry>
+
+            {
+                // typeof(showDeleteAlert) === 'boolean' ?
+                showDeleteAlert === true ?
+                    <AlertDiv
+                        message={"Entry Deleted!"}
+                        saveOrDeleteAlert={'delete'}
+                    /> :
+                    null
             }
+            
         </>
 
     )
