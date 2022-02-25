@@ -10,11 +10,18 @@ function EntryRow(props) {
 
   return (
     <>
-    {/* life saver: https://www.npmjs.com/package/react-textarea-autosize */}
-      <TextareaAutosize value={props.entry}
-        className={props.status}
-        onChange={(event) => handleEntry(event)}/>
+      {/* life saver: https://www.npmjs.com/package/react-textarea-autosize */}
+
+        <TextareaAutosize
+          value={props.entry}
+          className={props.status}
+          onChange={(event) => handleEntry(event)} />
+
+        {/* <button>
+          <i className="fas fa-times fa-2x" tabIndex="0"></i>
+        </button> */}
     </>
+
   );
 
 }
