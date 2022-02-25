@@ -38,6 +38,15 @@ function NewNote(props) {
         setAllEntries(temp)
     }
 
+    const resetNote = (event) => {
+        event.preventDefault();
+        let temp = [...allEntries];
+        let temp2 = temp.map((entry) => {
+            return ''
+        })
+        setAllEntries(temp2)
+    }
+
 
     // push everything on screen to firebase
     const saveNote = (event) => {
@@ -91,6 +100,10 @@ function NewNote(props) {
                         return (
                             // <li>
                             <EntryRow
+                            // need entry for reset all entries functionality
+                            // establish two way connection; entry={entry} allows change
+                            // in NewNote to go down into EntryRow
+                                entry={entry}
                                 index={indexOf}
                                 insertNewEntry={insertNewEntry}
                             />
@@ -103,13 +116,17 @@ function NewNote(props) {
                 <div className="buttons">
 
                     <button value={1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
-                        Add Task
+                        Add Entry
                     </button>
                     <button value={-1} onClick={(event) => changeNumberOfEntries(event)} tabIndex="0">
-                        Remove Task
+                        Remove Entry
                     </button>
                     <button onClick={(event) => saveNote(event)} tabIndex="0">
-                        Save List
+                        Save Note
+                    </button>
+
+                    <button onClick={(event) => resetNote(event)} tabIndex="0">
+                        Reset All Entries
                     </button>
                 </div>
             </form>
